@@ -1,11 +1,10 @@
 import random
 from unittest.mock import right
-
 from mysql.connector import cursor
-
 from databaseconnection import connection
 
 
+#transferred to class
 def retrieve_hints(selected_country, current_level):
     #SQL query to retrieve 6 hints correlating to the selected country, randomly ordered
     sql_hint= (f"select hints.description from hints inner join countries on countries.country_id = hints.country_id where countries.name = '{selected_country}' and  hints.level = '{current_level}' order by rand();")
@@ -26,7 +25,7 @@ def insert_data_disease_table(names, country, cursor):
     sql1 = f"insert into vaccine_voyage.disease (disease_name, visited_country) values ('{names}', '{country}')"
     return cursor.execute(sql1)
 
-
+#transferred to class
 def ingredient_country():
     sql = f"Select name from countries where name != 'No country' order by rand() limit 7 "
     cursor = connection.cursor()
@@ -38,6 +37,7 @@ def ingredient_country():
             list_country.append(row[0])
     return list_country
 
+#transferred to class
 def point_per_level(current_level):
     sql_point = f"select hints.points from hints where hints.level = '{current_level}' limit 1;"
     # create a cursor_hint to calculate point countries
@@ -49,7 +49,7 @@ def point_per_level(current_level):
         for point_row in result_point:
             point_level = point_row[0]
     return point_level
-
+#transferred to class
 def randomize_countries(countries):
     new_list = countries
     if len(new_list) > 4:
@@ -61,7 +61,7 @@ def randomize_countries(countries):
     return result
 
 
-
+#transferred to class
 def multiple_choice (right_country):
     sql = f"select name from countries where name != '{right_country}';"
     listed_countries = []
