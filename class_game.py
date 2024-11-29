@@ -4,6 +4,7 @@ from mysql.connector import cursor
 from databaseconnection import connection
 import random
 
+#inherit functions
 class Game(Country, GameMovement):
     def __init__(self,disease_name,points = 300, movement = "",):
         self.disease_name = disease_name

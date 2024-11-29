@@ -1,6 +1,7 @@
 from mysql.connector import cursor
 from databaseconnection import connection
 
+
 class Country:
     def __init__(self,name,level,fun_fact = ""):
         self.name = name
