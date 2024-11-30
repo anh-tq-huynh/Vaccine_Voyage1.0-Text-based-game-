@@ -14,6 +14,7 @@ class Game(Country, GameMovement):
         self.current_level = 1
         self.correct_guess = []
 
+    #generate 7 countries for the game + create a class for it through Country()
     def ingredient_country(self):
         sql = f"select name from countries where name != 'No country' order by rand() limit 7 "
         cursor = connection.cursor()

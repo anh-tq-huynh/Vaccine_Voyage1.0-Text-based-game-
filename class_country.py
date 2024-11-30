@@ -1,7 +1,7 @@
 from mysql.connector import cursor
 from databaseconnection import connection
 
-
+#each class represents a level with 1 country, 7 hints contained in a list
 class Country:
     def __init__(self,name,level,fun_fact = ""):
         self.name = name

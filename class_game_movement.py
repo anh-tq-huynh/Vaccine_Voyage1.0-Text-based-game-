@@ -1,4 +1,4 @@
-
+#based on the choice of the player to behave
 class GameMovement():
     def __init__(self,action):
         self.action = action
