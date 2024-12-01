@@ -1,5 +1,4 @@
 import random
-from unittest.mock import right
 from mysql.connector import cursor
 from databaseconnection import connection
 
