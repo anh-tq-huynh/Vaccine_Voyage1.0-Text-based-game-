@@ -30,7 +30,6 @@ def game_start(disease_name):
                 "hints": country.hint_list,
             }
             game_info["countries"].append(info_country)
-            response.append(info_country)
         json_response = json.dumps(response)
         http_response = Response(json_response, status = 200,mimetype='application/json')
         return http_response
