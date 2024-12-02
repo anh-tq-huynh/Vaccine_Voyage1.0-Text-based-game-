@@ -74,7 +74,8 @@ def multiple_choice (right_country):
         listed_countries1 = randomize_countries(listed_countries)
         for i in listed_countries1:
             multiple_options.append(i)
-    print('The ingredient may be in one of these countries: ',randomize_countries(multiple_options))
+    return randomize_countries(multiple_options)
+    #print('The ingredient may be in one of these countries: ',randomize_countries(multiple_options))
 
 def insert_session(disease_name,visited_countries, current_level):
     sql_session = f"insert into disease(disease_name, visited_countries,level) values ('{disease_name}',(select country_id from countries where name = '{visited_countries}'), '{current_level}');"

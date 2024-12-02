@@ -6,6 +6,8 @@ import random
 
 #inherit functions
 class Game(GameMovement):
+    list_first_countries = ["Finland", "Cambodia", "Canada", "Peru", "Croatia", "South Africa", "Dubai"]
+
     def __init__(self,disease_name,points = 300):
         self.disease_name = disease_name
         self.points = points
@@ -14,6 +16,7 @@ class Game(GameMovement):
         self.correct_guess = []
         self.level_over = "No"
         self.game_over = "No"
+        self.first_country = random.choice(Game.list_first_countries)
         super().__init__(self.current_level)
 
     #generate 7 countries for the game + create a class for it through Country()
@@ -25,35 +28,15 @@ class Game(GameMovement):
         if cursor.rowcount > 0:
             level = 1
             for row in result:
-                self.country_list.append(Country(row[0],level,self.retrieve_hints(row[0],level)))
+                country = Country(row[0],level)
+                country.retrieve_hints(row[0],level)
+                self.country_list.append(country)
                 level += 1
         return self.country_list
 
-    def retrieve_hints(self,name,level):
-        # SQL query to retrieve 6 hints correlating to the selected country, randomly ordered
-        hint_list = []
-        sql_hint = (
-            f"select hints.description from hints inner join countries on countries.country_id = hints.country_id where countries.name = '{name}' and  hints.level = '{level}' order by rand();")
-        # create a cursor_hint to collect countries
-        cursor_hint = connection.cursor()
-        cursor_hint.execute(sql_hint)
-        result_hint = cursor_hint.fetchall()
-
-        if cursor_hint.rowcount > 0:
-            for hint_row in result_hint:
-                hint_list.append(hint_row[0])
-        return hint_list
-        """
-        for answer in self.country_list:
-            sql_fact = f"select fun_fact from countries where name = '{answer}' "
-            cursor_fact = connection.cursor()
-            cursor_fact.execute(sql_fact)
-            result_fact = cursor.fetchall()
-            if cursor_fact.rowcount > 0:
-                for row in result_fact:
-                    fact = row[0]
-                    country = super((answer,self.country_list.index(answer) + 1,fact))
-        """
+    def calculate_points(self):
+        self.points += 100
+        return self.points
 
     def answer_is_correct(self,guess_input):
         if guess_input == self.country_list[self.current_level - 1].name:
@@ -100,7 +83,8 @@ class Game(GameMovement):
             listed_countries1 = self.randomize_countries(listed_countries)
             for i in listed_countries1:
                 multiple_options.append(i)
-            print('The ingredient may be in one of these countries: ', self.randomize_countries(multiple_options))
+            return self.randomize_countries(multiple_options)
+            #print('The ingredient may be in one of these countries: ', self.randomize_countries(multiple_options))
         else:
             self.game_over = "Yes"
             return self.game_over
@@ -116,7 +100,6 @@ class Game(GameMovement):
             for point_row in result_point:
                 point_level = point_row[0]
         return point_level
-
 
     def is_lost(self):
         if self.points >= 0:
