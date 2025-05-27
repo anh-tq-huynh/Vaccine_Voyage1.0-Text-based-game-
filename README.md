@@ -63,7 +63,7 @@ FLUSH PRIVILEGES;
 ```
 5. Clone the content of the game's database into the newly created vaccine_voyage
 ```bash
-SOURCE <saved-repository-path>/VaccineVoyage2.0/database-dumps/vaccines_dump.sql
+SOURCE <saved-repository-path>/Vaccine_Voyage1.0-Text-based-game-/vaccine_voyage.sql
 ```
 **Note:** Sometimes the path may not work. If this happens, simply copy the vaccines_dumps.sql to the Download folder of your computer, then replace the command above with the new path. 
 
